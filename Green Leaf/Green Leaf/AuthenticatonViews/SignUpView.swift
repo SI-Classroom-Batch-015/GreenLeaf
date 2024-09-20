@@ -8,54 +8,51 @@
 import SwiftUI
 
 struct SignUpView: View {
-    @State private var fullName = ""
-    @State private var email = ""
-    @State private var password = ""
-    @State private var confirmPassword = ""
-
+    
+    
+    @EnvironmentObject private var viewModel: AuthViewModel
+    
     var body: some View {
         NavigationStack {
             VStack {
                 Spacer()
-
+                
                 Text("Let's Get Started!")
                     .font(.largeTitle)
                     .fontWeight(.bold)
                     .foregroundColor(.green)
                     .padding(.bottom, 40)
-
+                
                 // Full Name, Email, Password, and Confirm Password TextFields
                 VStack(spacing: 16) {
-                    TextField("Full Name", text: $fullName)
+                    TextField("Full Name", text: $viewModel.fullName)
                         .padding()
                         .background(Color.white)
                         .cornerRadius(10)
                         .shadow(color: .gray, radius: 5, x: 0, y: 2)
-
-                    TextField("Email", text: $email)
+                    
+                    TextField("Email", text: $viewModel.email)
                         .padding()
                         .background(Color.white)
                         .cornerRadius(10)
                         .shadow(color: .gray, radius: 5, x: 0, y: 2)
-
-                    SecureField("Password", text: $password)
+                    
+                    SecureField("Password", text: $viewModel.password)
                         .padding()
                         .background(Color.white)
                         .cornerRadius(10)
                         .shadow(color: .gray, radius: 5, x: 0, y: 2)
-
-                    SecureField("Confirm Password", text: $confirmPassword)
+                    
+                    SecureField("Confirm Password", text: $viewModel.confirmPassword)
                         .padding()
                         .background(Color.white)
                         .cornerRadius(10)
                         .shadow(color: .gray, radius: 5, x: 0, y: 2)
                 }
                 .padding(.horizontal)
-
+                
                 // Sign Up Button
-                Button(action: {
-                    // logik sign up action
-                }) {
+                Button(action: viewModel.register) {
                     Text("Sign up")
                         .foregroundColor(.white)
                         .font(.headline)
@@ -67,9 +64,9 @@ struct SignUpView: View {
                 }
                 .padding(.horizontal)
                 .padding(.top, 20)
-
+                
                 Spacer()
-
+                
                 // Already have an account Link
                 NavigationLink {
                     LoginView()
@@ -91,5 +88,5 @@ struct SignUpView: View {
 }
 
 #Preview {
-    SignUpView()
+    SignUpView().environmentObject(AuthViewModel())
 }

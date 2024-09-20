@@ -115,11 +115,11 @@
 		FD4A43642C988A4100493303 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				FD4A436D2C98926800493303 /* ProfileView.swift */,
 				FD4A43652C98921D00493303 /* HomeView.swift */,
 				FD4A43672C98922E00493303 /* TrendingView.swift */,
 				FD4A43692C98923A00493303 /* AddView.swift */,
 				FD4A436B2C98925300493303 /* FavoriteView.swift */,
-				FD4A436D2C98926800493303 /* ProfileView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -154,7 +154,7 @@
 			isa = PBXGroup;
 			children = (
 				FD9481802C9C771600BFEB7A /* ViewModel */,
-				FD94817B2C9C738900BFEB7A /* Model */,
+				FD94817B2C9C738900BFEB7A /* MockData */,
 				FD9481782C9C5E5000BFEB7A /* Enums */,
 				FD4A436F2C9913D700493303 /* Components */,
 				FD4A43642C988A4100493303 /* Views */,
@@ -204,12 +204,12 @@
 			path = Enums;
 			sourceTree = "<group>";
 		};
-		FD94817B2C9C738900BFEB7A /* Model */ = {
+		FD94817B2C9C738900BFEB7A /* MockData */ = {
 			isa = PBXGroup;
 			children = (
 				FD94817C2C9C739800BFEB7A /* User.swift */,
 			);
-			path = Model;
+			path = MockData;
 			sourceTree = "<group>";
 		};
 		FD9481802C9C771600BFEB7A /* ViewModel */ = {
