@@ -31,6 +31,7 @@
 		FD9481872C9C7BF200BFEB7A /* FirebaseDatabase in Frameworks */ = {isa = PBXBuildFile; productRef = FD9481862C9C7BF200BFEB7A /* FirebaseDatabase */; };
 		FD9481892C9C7BF900BFEB7A /* FirebaseStorage in Frameworks */ = {isa = PBXBuildFile; productRef = FD9481882C9C7BF900BFEB7A /* FirebaseStorage */; };
 		FD94818B2C9C7C0600BFEB7A /* FirebaseFirestore in Frameworks */ = {isa = PBXBuildFile; productRef = FD94818A2C9C7C0600BFEB7A /* FirebaseFirestore */; };
+		FDAEFED22CA1E51A003C19C5 /* FirebaseManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = FDAEFED12CA1E51A003C19C5 /* FirebaseManager.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -55,6 +56,7 @@
 		FD94817C2C9C739800BFEB7A /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		FD94817E2C9C73DE00BFEB7A /* SettingsRowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsRowView.swift; sourceTree = "<group>"; };
 		FD9481812C9C772800BFEB7A /* AuthViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthViewModel.swift; sourceTree = "<group>"; };
+		FDAEFED12CA1E51A003C19C5 /* FirebaseManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseManager.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -153,6 +155,7 @@
 		FD882C082C92FD570056F769 /* Green Leaf */ = {
 			isa = PBXGroup;
 			children = (
+				FDAEFED02CA1E505003C19C5 /* FirebaseManager */,
 				FD9481802C9C771600BFEB7A /* ViewModel */,
 				FD94817B2C9C738900BFEB7A /* MockData */,
 				FD9481782C9C5E5000BFEB7A /* Enums */,
@@ -225,6 +228,14 @@
 			children = (
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		FDAEFED02CA1E505003C19C5 /* FirebaseManager */ = {
+			isa = PBXGroup;
+			children = (
+				FDAEFED12CA1E51A003C19C5 /* FirebaseManager.swift */,
+			);
+			path = FirebaseManager;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -319,6 +330,7 @@
 				FD4A436C2C98925300493303 /* FavoriteView.swift in Sources */,
 				FD94817D2C9C739800BFEB7A /* User.swift in Sources */,
 				FD4A435E2C9876E200493303 /* LoginView.swift in Sources */,
+				FDAEFED22CA1E51A003C19C5 /* FirebaseManager.swift in Sources */,
 				FD4A43632C9886F500493303 /* MainTabView.swift in Sources */,
 				FD94817A2C9C5E6300BFEB7A /* TabItem.swift in Sources */,
 				FD4A43662C98921D00493303 /* HomeView.swift in Sources */,

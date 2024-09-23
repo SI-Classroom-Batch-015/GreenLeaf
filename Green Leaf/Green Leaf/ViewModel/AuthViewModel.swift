@@ -13,11 +13,14 @@ import FirebaseFirestore
 @MainActor
 class AuthViewModel: ObservableObject {
     
+    // Instanz von FirebaseManager
+    private let firebaseManager = FirebaseManager.shared
+    
     @Published var userSession: FirebaseAuth.User? // Überwacht, ob ein Benutzer angemeldet ist
     @Published var currentUser: User? // Enthält die aktuellen Benutzerdaten
     
     init(){
-        self.userSession = Auth.auth().currentUser // Aktuellen Benutzer beim Start prüfen
+        self.userSession = FirebaseManager.shared.auth.currentUser // Aktuellen Benutzer beim Start prüfen
         Task {
             await fetchUser() // Benutzerdaten laden, falls ein Benutzer angemeldet ist
         }
@@ -26,7 +29,7 @@ class AuthViewModel: ObservableObject {
     // Login-Methode
     func signIn(withEmail email: String, password: String) async throws {
         do {
-            let result = try await Auth.auth().signIn(withEmail: email, password: password)
+            let result = try await FirebaseManager.shared.auth.signIn(withEmail: email, password: password)
             self.userSession = result.user // Aktualisiere die userSession
             await fetchUser() // Benutzerdaten laden
         } catch {
@@ -38,7 +41,7 @@ class AuthViewModel: ObservableObject {
     // Registrierungsmethode
     func createUser(withEmail email: String, password: String, fullName: String) async throws {
            do {
-               let result = try await Auth.auth().createUser(withEmail: email, password: password)
+               let result = try await FirebaseManager.shared.auth.createUser(withEmail: email, password: password)
                self.userSession = result.user // Benutzer-Session aktualisieren
                
                // Benutzer-Daten vorbereiten
@@ -49,7 +52,7 @@ class AuthViewModel: ObservableObject {
                ]
                
                // Benutzerdaten in Firestore speichern
-               try await Firestore.firestore().collection("users").document(result.user.uid).setData(userData)
+               try await FirebaseManager.shared.database.collection("users").document(result.user.uid).setData(userData)
                
                // Benutzer-Daten abrufen und setzen
                await fetchUser()
@@ -61,9 +64,9 @@ class AuthViewModel: ObservableObject {
        }
     // Methode zum Abrufen der Benutzerdaten
     func fetchUser() async {
-        guard let uid = Auth.auth().currentUser?.uid else { return }
+        guard let uid = firebaseManager.auth.currentUser?.uid else { return }
         do {
-            let snapshot = try await Firestore.firestore().collection("users").document(uid).getDocument()
+            let snapshot = try await firebaseManager.database.collection("users").document(uid).getDocument()
             if let data = snapshot.data() {
                 self.currentUser = User(id: data["id"] as? String ?? "", fullname: data["fullname"] as? String ?? "", email: data["email"] as? String ?? "")
             }
@@ -75,7 +78,7 @@ class AuthViewModel: ObservableObject {
     // Abmeldungsmethode
     func signOut() {
         do {
-            try Auth.auth().signOut()
+            try firebaseManager.auth.signOut()
             self.userSession = nil
             self.currentUser = nil
         } catch {
