@@ -8,7 +8,10 @@
 import SwiftUI
 
 struct SignUpView: View {
-    
+    @State private var email = ""
+    @State private var fullName = ""
+    @State private var password = ""
+    @State private var confirmPassword = ""
     
     @EnvironmentObject private var viewModel: AuthViewModel
     
@@ -25,25 +28,25 @@ struct SignUpView: View {
                 
                 // Full Name, Email, Password, and Confirm Password TextFields
                 VStack(spacing: 16) {
-                    TextField("Full Name", text: $viewModel.fullName)
+                    TextField("Full Name", text: $fullName)
                         .padding()
                         .background(Color.white)
                         .cornerRadius(10)
                         .shadow(color: .gray, radius: 5, x: 0, y: 2)
                     
-                    TextField("Email", text: $viewModel.email)
+                    TextField("Email", text: $email)
                         .padding()
                         .background(Color.white)
                         .cornerRadius(10)
                         .shadow(color: .gray, radius: 5, x: 0, y: 2)
                     
-                    SecureField("Password", text: $viewModel.password)
+                    SecureField("Password", text: $password)
                         .padding()
                         .background(Color.white)
                         .cornerRadius(10)
                         .shadow(color: .gray, radius: 5, x: 0, y: 2)
                     
-                    SecureField("Confirm Password", text: $viewModel.confirmPassword)
+                    SecureField("Confirm Password", text: $confirmPassword)
                         .padding()
                         .background(Color.white)
                         .cornerRadius(10)
@@ -52,7 +55,11 @@ struct SignUpView: View {
                 .padding(.horizontal)
                 
                 // Sign Up Button
-                Button(action: viewModel.register) {
+                Button(action: {
+                    Task{
+                        try await viewModel.createUser(withEmail:email,password:password,fullName:fullName)
+                    }
+                }) {
                     Text("Sign up")
                         .foregroundColor(.white)
                         .font(.headline)
@@ -62,6 +69,7 @@ struct SignUpView: View {
                         .cornerRadius(10)
                         .shadow(color: .gray, radius: 5, x: 0, y: 2)
                 }
+                
                 .padding(.horizontal)
                 .padding(.top, 20)
                 
@@ -74,7 +82,7 @@ struct SignUpView: View {
                 } label: {
                     HStack(){
                         Text("Already have an account?")
-                        Text("Login here")
+                        Text("Login ")
                             .fontWeight(.bold)
                     }
                 }
@@ -88,5 +96,7 @@ struct SignUpView: View {
 }
 
 #Preview {
-    SignUpView().environmentObject(AuthViewModel())
-}
+    
+        SignUpView()
+    }
+

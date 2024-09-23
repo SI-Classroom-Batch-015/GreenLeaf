@@ -11,6 +11,7 @@ import FirebaseAuth
 
 @main
 struct Green_LeafApp: App {
+    @StateObject var viewModel = AuthViewModel()
     
     init() {
           FirebaseConfiguration.shared.setLoggerLevel(.min)
@@ -19,7 +20,11 @@ struct Green_LeafApp: App {
     
     var body: some Scene {
         WindowGroup {
-           SplashScreenView()
-        }
-    }
-}
+                   if viewModel.userSession != nil {
+                       MainTabView().environmentObject(viewModel)
+                   } else {
+                       SplashScreenView().environmentObject(viewModel)
+                   }
+               }
+           }
+       }

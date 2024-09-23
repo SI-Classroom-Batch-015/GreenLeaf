@@ -8,92 +8,91 @@
 import Foundation
 import Firebase
 import FirebaseAuth
+import FirebaseFirestore
 
+@MainActor
 class AuthViewModel: ObservableObject {
     
-    private var auth = Auth.auth()
-    
+    @Published var userSession: FirebaseAuth.User?
     @Published var currentUser: User?
     
-    @Published var firebaseUser: FirebaseAuth.User?
-    @Published var errorMessage: String?
-    
-    @Published var email = ""
-    @Published var password = ""
-    
-    @Published  var fullName = ""
-    @Published  var confirmPassword = ""
-    
-    init(){
-       loadCurrentUser()
-    }
-    
-    func loadCurrentUser() {
-            guard let firebaseUser = auth.currentUser else { return }
-       
-        self.currentUser = User( id: "", fullname: firebaseUser.displayName ?? "", email: firebaseUser.email ?? "")
-        }
-    
-    
-    private func checkAuth() {
-        guard let currentUser = auth.currentUser else {
-            print("Not logged in")
-            return
-        }
+    init() {
+        self.userSession = Auth.auth().currentUser
+     
         
-        self.firebaseUser = currentUser
-    }
-
-    //Login
-    func signIn( ){
-        auth.signIn(withEmail: email, password: password) { authResult, error in
-            if let error {
-                print("login faild:", error.localizedDescription)
-                return
-            }
-            guard let authResult, let email = authResult.user.email else { return }
-            print("User with email'\(email)'is logged in with id '\(authResult.user.uid)'")
-            self.firebaseUser = authResult.user
-            self.errorMessage = nil
+        Task{
+            await fetchUser()
         }
-      
+    }
+    
+    //Login
+    func signIn(withEmail email: String , password:String ) async throws {
+        do {
+            let result = try await Auth.auth().signIn(withEmail: email, password: password)
+            self.userSession = result.user
+        } catch {
+            print("DEBUG: Failed to logo in with error \(error.localizedDescription)")
+        }
+       
+        
     }
     
     //signUP
-    func register() {
-        auth.createUser(withEmail: email, password: password) { authResult, error in
-            if let error {
-                print("Registration failed:", error.localizedDescription)
-                return
+    func createUser(withEmail email: String, password:String, fullName: String) async throws {
+        do {
+            let result = try await Auth.auth().createUser(withEmail: email, password: password)
+            self.userSession = result.user
+            let user = User(id: result.user.uid, fullname: fullName, email: email)
+            let encodedUser = try Firestore.Encoder().encode(user)
+            try await Firestore.firestore().collection("useres").document(user.id).setData(encodedUser)
+            await fetchUser()
+        } catch {
+            print("DEBUG: Failed to create user with error \(error.localizedDescription)")
+        }
+    }
+        
+        //signout
+        func signOut(){
+            do {
+                try Auth.auth().signOut() // signs out user on backend
+                self.userSession = nil // wipes out user session and takes us back to login screen
+                self.currentUser = nil // wipes out current user data model
+                
+            } catch {
+                print("DEBUG: faild to sign out with error \(error.localizedDescription)")
+                
             }
             
-            guard let authResult, let email = authResult.user.email else { return }
-            print("User with email '\(email)' is registered with id '\(authResult.user.uid)'")
-            
-            self.firebaseUser = authResult.user
-        }
-    }
-    //signout
-    func signOut(){
-        do {
-            try auth.signOut()
-            self.firebaseUser = nil
-            
-            print("User wurde abgemeldet!")
-        } catch {
-            print("Error signing out: ", error.localizedDescription)
         }
         
-    }
-    
-    func deleteAccount(){
+        func deleteAccount(){
+            
+            
+        }
         
-        
-    }
-    
     func fetchUser() async {
+        guard let uid = Auth.auth().currentUser?.uid else {
+            print("DEBUG: No user logged in")
+            return
+        }
+        guard let snapshot = try? await Firestore.firestore().collection("users").document(uid).getDocument() else {return}
+        self.currentUser = try? snapshot.data(as: User.self)
         
-        
+        print("DEBUG: Current User is \(self.currentUser)")
     }
     
-}
+    func checkCurrentUser() async {
+        if Auth.auth().currentUser != nil {
+            self.userSession = Auth.auth().currentUser
+            await fetchUser()
+        } else {
+            self.userSession = nil
+            self.currentUser = nil
+        }
+    }
+
+
+        
+  }
+    
+

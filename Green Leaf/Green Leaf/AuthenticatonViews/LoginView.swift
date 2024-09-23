@@ -8,7 +8,9 @@
 import SwiftUI
 
 struct LoginView: View {
-   
+    @State var email = ""
+    @State var password = ""
+    
     @StateObject var viewModel = AuthViewModel()
     
     var body: some View {
@@ -35,13 +37,13 @@ struct LoginView: View {
                 
                 // Username and Password TextFields
                 VStack(spacing: 16) {
-                    TextField("email", text: $viewModel.email)
+                    TextField("email", text: $email )
                         .padding()
                         .background(Color.white)
                         .cornerRadius(10)
                         .shadow(color: .gray, radius: 5, x: 0, y: 2)
                     
-                    SecureField("Password", text: $viewModel.password)
+                    SecureField("Password", text: $password)
                         .padding()
                         .background(Color.white)
                         .cornerRadius(10)
@@ -51,7 +53,11 @@ struct LoginView: View {
                 
                 // Log In Button
                 Button {
-                    viewModel.signIn()
+                    Task {
+                        
+                        try await viewModel.signIn(withEmail: email,password: password)
+                    }
+                   
                 } label: {
                     Text("LOG IN")
                         .foregroundColor(.white)
@@ -68,7 +74,7 @@ struct LoginView: View {
                 // Forgot Password and Social Media Login
                 VStack {
                     Button(action: {
-                        // Handle forgot password action
+                       
                     }) {
                         Text("Forgot Password?")
                             .font(.footnote)
@@ -115,5 +121,8 @@ struct LoginView: View {
 }
 
 #Preview {
-    LoginView().environmentObject(AuthViewModel())
-}
+
+        LoginView()
+    }
+
+
