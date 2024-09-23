@@ -13,7 +13,7 @@ struct SignUpView: View {
     @State private var password = ""
     @State private var confirmPassword = ""
     
-    @EnvironmentObject private var viewModel: AuthViewModel
+    @EnvironmentObject private var viewModel: FirebaseViewModel
     
     var body: some View {
         NavigationStack {

@@ -9,7 +9,7 @@ import SwiftUI
 
 struct ProfileView: View {
     
-    @EnvironmentObject var viewModel: AuthViewModel
+    @EnvironmentObject var viewModel: FirebaseViewModel
     
     var body: some View {
         if let user = viewModel.currentUser {
@@ -70,7 +70,7 @@ struct ProfileView: View {
 // Preview
 #Preview {
 
-        let testViewModel = AuthViewModel()
+        let testViewModel = FirebaseViewModel()
     testViewModel.currentUser = User(id: "1", fullname: "Test USer", email: "test@mail.com")
         
        return ProfileView().environmentObject(testViewModel)

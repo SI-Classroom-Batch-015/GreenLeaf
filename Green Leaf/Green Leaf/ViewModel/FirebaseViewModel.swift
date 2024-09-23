@@ -1,5 +1,5 @@
 //
-//  AuthViewModel.swift
+//  FirebaseViewModel.swift
 //  Green Leaf
 //
 //  Created by Maisam Ahmadi on 19.09.24.
@@ -11,7 +11,7 @@ import FirebaseAuth
 import FirebaseFirestore
 
 @MainActor
-class AuthViewModel: ObservableObject {
+class FirebaseViewModel: ObservableObject {
     
     // Instanz von FirebaseManager
     private let firebaseManager = FirebaseManager.shared
