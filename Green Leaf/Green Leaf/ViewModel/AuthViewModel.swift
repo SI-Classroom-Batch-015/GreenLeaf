@@ -13,86 +13,73 @@ import FirebaseFirestore
 @MainActor
 class AuthViewModel: ObservableObject {
     
-    @Published var userSession: FirebaseAuth.User?
-    @Published var currentUser: User?
+    @Published var userSession: FirebaseAuth.User? // Überwacht, ob ein Benutzer angemeldet ist
+    @Published var currentUser: User? // Enthält die aktuellen Benutzerdaten
     
-    init() {
-        self.userSession = Auth.auth().currentUser
-     
-        
-        Task{
-            await fetchUser()
+    init(){
+        self.userSession = Auth.auth().currentUser // Aktuellen Benutzer beim Start prüfen
+        Task {
+            await fetchUser() // Benutzerdaten laden, falls ein Benutzer angemeldet ist
         }
     }
     
-    //Login
-    func signIn(withEmail email: String , password:String ) async throws {
+    // Login-Methode
+    func signIn(withEmail email: String, password: String) async throws {
         do {
             let result = try await Auth.auth().signIn(withEmail: email, password: password)
-            self.userSession = result.user
+            self.userSession = result.user // Aktualisiere die userSession
+            await fetchUser() // Benutzerdaten laden
         } catch {
-            print("DEBUG: Failed to logo in with error \(error.localizedDescription)")
+            print("Fehler bei der Anmeldung: \(error.localizedDescription)")
+            throw error
         }
-       
-        
     }
     
-    //signUP
-    func createUser(withEmail email: String, password:String, fullName: String) async throws {
-        do {
-            let result = try await Auth.auth().createUser(withEmail: email, password: password)
-            self.userSession = result.user
-            let user = User(id: result.user.uid, fullname: fullName, email: email)
-            let encodedUser = try Firestore.Encoder().encode(user)
-            try await Firestore.firestore().collection("useres").document(user.id).setData(encodedUser)
-            await fetchUser()
-        } catch {
-            print("DEBUG: Failed to create user with error \(error.localizedDescription)")
-        }
-    }
-        
-        //signout
-        func signOut(){
-            do {
-                try Auth.auth().signOut() // signs out user on backend
-                self.userSession = nil // wipes out user session and takes us back to login screen
-                self.currentUser = nil // wipes out current user data model
-                
-            } catch {
-                print("DEBUG: faild to sign out with error \(error.localizedDescription)")
-                
-            }
-            
-        }
-        
-        func deleteAccount(){
-            
-            
-        }
-        
+    // Registrierungsmethode
+    func createUser(withEmail email: String, password: String, fullName: String) async throws {
+           do {
+               let result = try await Auth.auth().createUser(withEmail: email, password: password)
+               self.userSession = result.user // Benutzer-Session aktualisieren
+               
+               // Benutzer-Daten vorbereiten
+               let userData: [String: Any] = [
+                   "id": result.user.uid,
+                   "fullname": fullName,
+                   "email": email
+               ]
+               
+               // Benutzerdaten in Firestore speichern
+               try await Firestore.firestore().collection("users").document(result.user.uid).setData(userData)
+               
+               // Benutzer-Daten abrufen und setzen
+               await fetchUser()
+               
+           } catch {
+               print("Fehler bei der Registrierung: \(error.localizedDescription)")
+               throw error
+           }
+       }
+    // Methode zum Abrufen der Benutzerdaten
     func fetchUser() async {
-        guard let uid = Auth.auth().currentUser?.uid else {
-            print("DEBUG: No user logged in")
-            return
+        guard let uid = Auth.auth().currentUser?.uid else { return }
+        do {
+            let snapshot = try await Firestore.firestore().collection("users").document(uid).getDocument()
+            if let data = snapshot.data() {
+                self.currentUser = User(id: data["id"] as? String ?? "", fullname: data["fullname"] as? String ?? "", email: data["email"] as? String ?? "")
+            }
+        } catch {
+            print("Fehler beim Abrufen des Benutzers: \(error.localizedDescription)")
         }
-        guard let snapshot = try? await Firestore.firestore().collection("users").document(uid).getDocument() else {return}
-        self.currentUser = try? snapshot.data(as: User.self)
-        
-        print("DEBUG: Current User is \(self.currentUser)")
     }
     
-    func checkCurrentUser() async {
-        if Auth.auth().currentUser != nil {
-            self.userSession = Auth.auth().currentUser
-            await fetchUser()
-        } else {
+    // Abmeldungsmethode
+    func signOut() {
+        do {
+            try Auth.auth().signOut()
             self.userSession = nil
             self.currentUser = nil
+        } catch {
+            print("Fehler beim Abmelden: \(error.localizedDescription)")
         }
     }
-
-
-        
-  }
-    
-
+}

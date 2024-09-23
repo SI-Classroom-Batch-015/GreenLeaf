@@ -13,19 +13,15 @@ struct ContentView: View {
     var body: some View {
         Group {
             if viewModel.userSession != nil {
-                ProfileView()
+                MainTabView() // Benutzer ist angemeldet, gehe zur Hauptansicht
             } else {
-                LoginView()
+                LoginView() // Benutzer ist nicht angemeldet, zeige die Login-Ansicht
             }
         }
         .onAppear {
-            Task{
-                await viewModel.checkCurrentUser()
+            Task {
+                await viewModel.fetchUser() // Benutzerdaten laden, wenn die Ansicht erscheint
             }
         }
     }
-}
-
-#Preview {
-    ContentView().environmentObject(AuthViewModel())
 }

@@ -11,14 +11,13 @@ struct LoginView: View {
     @State var email = ""
     @State var password = ""
     
-    @StateObject var viewModel = AuthViewModel()
+    @EnvironmentObject var viewModel: AuthViewModel
     
     var body: some View {
         NavigationStack {
             VStack {
                 Spacer()
                 
-                // Logo
                 Image(systemName: "camera.circle.fill")
                     .resizable()
                     .frame(width: 150, height: 150)
@@ -29,15 +28,15 @@ struct LoginView: View {
                     .fontWeight(.bold)
                     .foregroundColor(.green)
                 
-                Text("gift of the moments")
+                Text("Gift of the moments")
                     .font(.subheadline)
                     .italic()
                     .foregroundColor(.gray)
                     .padding(.bottom, 40)
                 
-                // Username and Password TextFields
+                // Eingabefelder für Email und Passwort
                 VStack(spacing: 16) {
-                    TextField("email", text: $email )
+                    TextField("Email", text: $email)
                         .padding()
                         .background(Color.white)
                         .cornerRadius(10)
@@ -51,13 +50,15 @@ struct LoginView: View {
                 }
                 .padding(.horizontal)
                 
-                // Log In Button
+                // Login Button
                 Button {
                     Task {
-                        
-                        try await viewModel.signIn(withEmail: email,password: password)
+                        do {
+                            try await viewModel.signIn(withEmail: email, password: password)
+                        } catch {
+                            print("Anmeldefehler: \(error)")
+                        }
                     }
-                   
                 } label: {
                     Text("LOG IN")
                         .foregroundColor(.white)
@@ -71,40 +72,14 @@ struct LoginView: View {
                 .padding(.horizontal)
                 .padding(.top, 20)
                 
-                // Forgot Password and Social Media Login
-                VStack {
-                    Button(action: {
-                       
-                    }) {
-                        Text("Forgot Password?")
-                            .font(.footnote)
-                            .foregroundColor(.gray)
-                    }
-                    
-                    HStack(spacing: 20) {
-                        Image(systemName: "f.circle.fill") // Facebook Icon
-                            .font(.system(size: 40))
-                            .foregroundColor(.blue)
-                        
-                        Image(systemName: "g.circle.fill") // Google Icon
-                            .font(.system(size: 40))
-                            .foregroundColor(.red)
-                        
-                        Image(systemName: "applelogo") // Apple Icon
-                            .font(.system(size: 40))
-                            .foregroundColor(.black)
-                    }
-                    .padding(.top, 20)
-                }
-                
                 Spacer()
                 
-                // Sign Up Link
+                // Registrierung Link
                 NavigationLink {
                     SignUpView()
                         .navigationBarBackButtonHidden(true)
                 } label: {
-                    HStack(spacing: 3) {
+                    HStack {
                         Text("Don't have an account?")
                         Text("Sign up")
                             .fontWeight(.bold)
@@ -112,16 +87,15 @@ struct LoginView: View {
                     .font(.system(size: 14))
                 }
                 .padding(.bottom, 30)
-                
             }
-            .background(Color(red: 0.9, green: 1.0, blue: 0.8)) // Light green background
+            .background(Color(red: 0.9, green: 1.0, blue: 0.8)) // Hellgrüner Hintergrund für login view
             .edgesIgnoringSafeArea(.all)
         }
     }
 }
 
 #Preview {
-
+    
         LoginView()
     }
 
