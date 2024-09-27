@@ -44,7 +44,7 @@ class FirebaseViewModel: ObservableObject {
                let result = try await FirebaseManager.shared.auth.createUser(withEmail: email, password: password)
                self.userSession = result.user // Benutzer-Session aktualisieren
                
-               // Benutzer-Daten vorbereiten
+               // Benuzer-Daten vorbereiten
                let userData: [String: Any] = [
                    "id": result.user.uid,
                    "fullname": fullName,
@@ -78,8 +78,8 @@ class FirebaseViewModel: ObservableObject {
     // Abmeldungsmethode
     func signOut() {
         do {
-            try firebaseManager.auth.signOut()
-            self.userSession = nil
+            try firebaseManager.auth.signOut() // signout der user in backend
+            self.userSession = nil  // löscht die Benutzersitzung und bringt uns zurück zum Anmeldebildschirm
             self.currentUser = nil
         } catch {
             print("Fehler beim Abmelden: \(error.localizedDescription)")

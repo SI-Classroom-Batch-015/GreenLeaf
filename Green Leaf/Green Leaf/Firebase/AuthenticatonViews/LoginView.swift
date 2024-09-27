@@ -100,3 +100,4 @@ struct LoginView: View {
     }
 
 
+// sign und sign up mit If verzweigung weiter machen 

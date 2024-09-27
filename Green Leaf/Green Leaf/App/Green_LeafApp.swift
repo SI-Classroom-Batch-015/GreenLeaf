@@ -11,7 +11,7 @@ import FirebaseAuth
 
 @main
 struct Green_LeafApp: App {
-    @StateObject var viewModel = AuthViewModel()
+    @StateObject var viewModel = FirebaseViewModel()
     
     init() {
           FirebaseConfiguration.shared.setLoggerLevel(.min)

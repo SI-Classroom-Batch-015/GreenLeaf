@@ -50,6 +50,6 @@ struct MainTabView: View {
     
 }
 #Preview {
-    MainTabView().environmentObject(AuthViewModel())
+    MainTabView().environmentObject(FirebaseViewModel())
 }
  
