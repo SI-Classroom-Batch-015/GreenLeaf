@@ -37,6 +37,9 @@
 		FDAEFEDC2CA305A8003C19C5 /* UnsplashPhoto.swift in Sources */ = {isa = PBXBuildFile; fileRef = FDAEFEDB2CA305A8003C19C5 /* UnsplashPhoto.swift */; };
 		FDAEFEDE2CA305F9003C19C5 /* APIKey.swift in Sources */ = {isa = PBXBuildFile; fileRef = FDAEFEDD2CA305F9003C19C5 /* APIKey.swift */; };
 		FDAEFEE02CA30612003C19C5 /* HTTPError.swift in Sources */ = {isa = PBXBuildFile; fileRef = FDAEFEDF2CA30612003C19C5 /* HTTPError.swift */; };
+		FDAEFEE32CAADB61003C19C5 /* UnsplashPhotoPicker in Frameworks */ = {isa = PBXBuildFile; productRef = FDAEFEE22CAADB61003C19C5 /* UnsplashPhotoPicker */; };
+		FDAEFEE52CAC2CEA003C19C5 /* PhotoDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FDAEFEE42CAC2CEA003C19C5 /* PhotoDetailView.swift */; };
+		FDAEFEE72CB35484003C19C5 /* UnsplashSearchResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = FDAEFEE62CB35484003C19C5 /* UnsplashSearchResult.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -67,6 +70,8 @@
 		FDAEFEDB2CA305A8003C19C5 /* UnsplashPhoto.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UnsplashPhoto.swift; sourceTree = "<group>"; };
 		FDAEFEDD2CA305F9003C19C5 /* APIKey.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIKey.swift; sourceTree = "<group>"; };
 		FDAEFEDF2CA30612003C19C5 /* HTTPError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTTPError.swift; sourceTree = "<group>"; };
+		FDAEFEE42CAC2CEA003C19C5 /* PhotoDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoDetailView.swift; sourceTree = "<group>"; };
+		FDAEFEE62CB35484003C19C5 /* UnsplashSearchResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UnsplashSearchResult.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -77,6 +82,7 @@
 				FD9481872C9C7BF200BFEB7A /* FirebaseDatabase in Frameworks */,
 				FD94818B2C9C7C0600BFEB7A /* FirebaseFirestore in Frameworks */,
 				FD9481852C9C7BBF00BFEB7A /* FirebaseAuth in Frameworks */,
+				FDAEFEE32CAADB61003C19C5 /* UnsplashPhotoPicker in Frameworks */,
 				FD9481892C9C7BF900BFEB7A /* FirebaseStorage in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -140,6 +146,7 @@
 				FD4A43672C98922E00493303 /* TrendingView.swift */,
 				FD4A43692C98923A00493303 /* AddView.swift */,
 				FD4A436B2C98925300493303 /* FavoriteView.swift */,
+				FDAEFEE42CAC2CEA003C19C5 /* PhotoDetailView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -256,6 +263,7 @@
 			isa = PBXGroup;
 			children = (
 				FDAEFEDF2CA30612003C19C5 /* HTTPError.swift */,
+				FDAEFEE62CB35484003C19C5 /* UnsplashSearchResult.swift */,
 			);
 			path = Enums;
 			sourceTree = "<group>";
@@ -306,6 +314,7 @@
 				FD9481862C9C7BF200BFEB7A /* FirebaseDatabase */,
 				FD9481882C9C7BF900BFEB7A /* FirebaseStorage */,
 				FD94818A2C9C7C0600BFEB7A /* FirebaseFirestore */,
+				FDAEFEE22CAADB61003C19C5 /* UnsplashPhotoPicker */,
 			);
 			productName = "Green Leaf";
 			productReference = FD882C062C92FD570056F769 /* Green Leaf.app */;
@@ -337,6 +346,7 @@
 			mainGroup = FD882BFD2C92FD560056F769;
 			packageReferences = (
 				FD4A43762C9B97A900493303 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
+				FDAEFEE12CAADB61003C19C5 /* XCRemoteSwiftPackageReference "unsplash-photopicker-ios" */,
 			);
 			productRefGroup = FD882C072C92FD570056F769 /* Products */;
 			projectDirPath = "";
@@ -365,6 +375,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				FDAEFEE72CB35484003C19C5 /* UnsplashSearchResult.swift in Sources */,
 				FDAEFEDC2CA305A8003C19C5 /* UnsplashPhoto.swift in Sources */,
 				FD4A43682C98922E00493303 /* TrendingView.swift in Sources */,
 				FD4A43712C9913ED00493303 /* UserstatusView.swift in Sources */,
@@ -373,6 +384,7 @@
 				FD94817F2C9C73DE00BFEB7A /* SettingsRowView.swift in Sources */,
 				FDAEFEDE2CA305F9003C19C5 /* APIKey.swift in Sources */,
 				FDAEFEDA2CA30585003C19C5 /* UnsplashRepository.swift in Sources */,
+				FDAEFEE52CAC2CEA003C19C5 /* PhotoDetailView.swift in Sources */,
 				FD4A435B2C98614300493303 /* WelcomeScreenView.swift in Sources */,
 				FD4A436E2C98926800493303 /* ProfileView.swift in Sources */,
 				FD9481822C9C772800BFEB7A /* FirebaseViewModel.swift in Sources */,
@@ -603,6 +615,14 @@
 				minimumVersion = 11.2.0;
 			};
 		};
+		FDAEFEE12CAADB61003C19C5 /* XCRemoteSwiftPackageReference "unsplash-photopicker-ios" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/unsplash/unsplash-photopicker-ios.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.3.0;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -625,6 +645,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = FD4A43762C9B97A900493303 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
 			productName = FirebaseFirestore;
+		};
+		FDAEFEE22CAADB61003C19C5 /* UnsplashPhotoPicker */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = FDAEFEE12CAADB61003C19C5 /* XCRemoteSwiftPackageReference "unsplash-photopicker-ios" */;
+			productName = UnsplashPhotoPicker;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

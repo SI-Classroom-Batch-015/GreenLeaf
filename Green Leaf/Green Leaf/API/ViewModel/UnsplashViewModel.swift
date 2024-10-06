@@ -29,5 +29,20 @@ class UnsplashViewModel: ObservableObject {
         
         isLoading = false
     }
-}
+    
+    func searchPhotos(query: String) async {
+        guard !query.isEmpty else { return }
+        isLoading = true
+        errorMessage = nil
 
+        do {
+            let fetchedPhotos = try await repository.searchPhotos(query: query)
+            photos = fetchedPhotos
+        } catch {
+            errorMessage = error.localizedDescription
+        }
+
+        isLoading = false
+    }
+
+   }
