@@ -27,19 +27,19 @@
 		FD94817D2C9C739800BFEB7A /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD94817C2C9C739800BFEB7A /* User.swift */; };
 		FD94817F2C9C73DE00BFEB7A /* SettingsRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD94817E2C9C73DE00BFEB7A /* SettingsRowView.swift */; };
 		FD9481822C9C772800BFEB7A /* FirebaseViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD9481812C9C772800BFEB7A /* FirebaseViewModel.swift */; };
-		FD9481852C9C7BBF00BFEB7A /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = FD9481842C9C7BBF00BFEB7A /* FirebaseAuth */; };
-		FD9481872C9C7BF200BFEB7A /* FirebaseDatabase in Frameworks */ = {isa = PBXBuildFile; productRef = FD9481862C9C7BF200BFEB7A /* FirebaseDatabase */; };
-		FD9481892C9C7BF900BFEB7A /* FirebaseStorage in Frameworks */ = {isa = PBXBuildFile; productRef = FD9481882C9C7BF900BFEB7A /* FirebaseStorage */; };
-		FD94818B2C9C7C0600BFEB7A /* FirebaseFirestore in Frameworks */ = {isa = PBXBuildFile; productRef = FD94818A2C9C7C0600BFEB7A /* FirebaseFirestore */; };
 		FDAEFED22CA1E51A003C19C5 /* FirebaseManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = FDAEFED12CA1E51A003C19C5 /* FirebaseManager.swift */; };
 		FDAEFED82CA30559003C19C5 /* UnsplashViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FDAEFED72CA30559003C19C5 /* UnsplashViewModel.swift */; };
 		FDAEFEDA2CA30585003C19C5 /* UnsplashRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = FDAEFED92CA30585003C19C5 /* UnsplashRepository.swift */; };
 		FDAEFEDC2CA305A8003C19C5 /* UnsplashPhoto.swift in Sources */ = {isa = PBXBuildFile; fileRef = FDAEFEDB2CA305A8003C19C5 /* UnsplashPhoto.swift */; };
 		FDAEFEDE2CA305F9003C19C5 /* APIKey.swift in Sources */ = {isa = PBXBuildFile; fileRef = FDAEFEDD2CA305F9003C19C5 /* APIKey.swift */; };
 		FDAEFEE02CA30612003C19C5 /* HTTPError.swift in Sources */ = {isa = PBXBuildFile; fileRef = FDAEFEDF2CA30612003C19C5 /* HTTPError.swift */; };
-		FDAEFEE32CAADB61003C19C5 /* UnsplashPhotoPicker in Frameworks */ = {isa = PBXBuildFile; productRef = FDAEFEE22CAADB61003C19C5 /* UnsplashPhotoPicker */; };
-		FDAEFEE52CAC2CEA003C19C5 /* PhotoDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FDAEFEE42CAC2CEA003C19C5 /* PhotoDetailView.swift */; };
 		FDAEFEE72CB35484003C19C5 /* UnsplashSearchResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = FDAEFEE62CB35484003C19C5 /* UnsplashSearchResult.swift */; };
+		FDAEFEE92CB3A34B003C19C5 /* PhotoDetailsSheetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FDAEFEE82CB3A34B003C19C5 /* PhotoDetailsSheetView.swift */; };
+		FDAEFEEB2CB3B15D003C19C5 /* PhotoDetailsSheetViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FDAEFEEA2CB3B15D003C19C5 /* PhotoDetailsSheetViewModel.swift */; };
+		FDAEFEEE2CB79733003C19C5 /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = FDAEFEED2CB79733003C19C5 /* FirebaseAuth */; };
+		FDAEFEF02CB79740003C19C5 /* FirebaseStorage in Frameworks */ = {isa = PBXBuildFile; productRef = FDAEFEEF2CB79740003C19C5 /* FirebaseStorage */; };
+		FDAEFEF22CB7974B003C19C5 /* FirebaseFirestore in Frameworks */ = {isa = PBXBuildFile; productRef = FDAEFEF12CB7974B003C19C5 /* FirebaseFirestore */; };
+		FDAEFEF42CB79765003C19C5 /* FirebaseDatabase in Frameworks */ = {isa = PBXBuildFile; productRef = FDAEFEF32CB79765003C19C5 /* FirebaseDatabase */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -70,8 +70,10 @@
 		FDAEFEDB2CA305A8003C19C5 /* UnsplashPhoto.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UnsplashPhoto.swift; sourceTree = "<group>"; };
 		FDAEFEDD2CA305F9003C19C5 /* APIKey.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIKey.swift; sourceTree = "<group>"; };
 		FDAEFEDF2CA30612003C19C5 /* HTTPError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTTPError.swift; sourceTree = "<group>"; };
-		FDAEFEE42CAC2CEA003C19C5 /* PhotoDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoDetailView.swift; sourceTree = "<group>"; };
 		FDAEFEE62CB35484003C19C5 /* UnsplashSearchResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UnsplashSearchResult.swift; sourceTree = "<group>"; };
+		FDAEFEE82CB3A34B003C19C5 /* PhotoDetailsSheetView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoDetailsSheetView.swift; sourceTree = "<group>"; };
+		FDAEFEEA2CB3B15D003C19C5 /* PhotoDetailsSheetViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoDetailsSheetViewModel.swift; sourceTree = "<group>"; };
+		FDAEFEEC2CB3B339003C19C5 /* Green-Leaf-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = "Green-Leaf-Info.plist"; sourceTree = SOURCE_ROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -79,11 +81,10 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				FD9481872C9C7BF200BFEB7A /* FirebaseDatabase in Frameworks */,
-				FD94818B2C9C7C0600BFEB7A /* FirebaseFirestore in Frameworks */,
-				FD9481852C9C7BBF00BFEB7A /* FirebaseAuth in Frameworks */,
-				FDAEFEE32CAADB61003C19C5 /* UnsplashPhotoPicker in Frameworks */,
-				FD9481892C9C7BF900BFEB7A /* FirebaseStorage in Frameworks */,
+				FDAEFEEE2CB79733003C19C5 /* FirebaseAuth in Frameworks */,
+				FDAEFEF02CB79740003C19C5 /* FirebaseStorage in Frameworks */,
+				FDAEFEF42CB79765003C19C5 /* FirebaseDatabase in Frameworks */,
+				FDAEFEF22CB7974B003C19C5 /* FirebaseFirestore in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -146,7 +147,7 @@
 				FD4A43672C98922E00493303 /* TrendingView.swift */,
 				FD4A43692C98923A00493303 /* AddView.swift */,
 				FD4A436B2C98925300493303 /* FavoriteView.swift */,
-				FDAEFEE42CAC2CEA003C19C5 /* PhotoDetailView.swift */,
+				FDAEFEE82CB3A34B003C19C5 /* PhotoDetailsSheetView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -180,6 +181,7 @@
 		FD882C082C92FD570056F769 /* Green Leaf */ = {
 			isa = PBXGroup;
 			children = (
+				FDAEFEEC2CB3B339003C19C5 /* Green-Leaf-Info.plist */,
 				FD4A43552C94759F00493303 /* Firebase */,
 				FD9481782C9C5E5000BFEB7A /* Enums */,
 				FD4A436F2C9913D700493303 /* Components */,
@@ -263,7 +265,6 @@
 			isa = PBXGroup;
 			children = (
 				FDAEFEDF2CA30612003C19C5 /* HTTPError.swift */,
-				FDAEFEE62CB35484003C19C5 /* UnsplashSearchResult.swift */,
 			);
 			path = Enums;
 			sourceTree = "<group>";
@@ -272,6 +273,7 @@
 			isa = PBXGroup;
 			children = (
 				FDAEFED72CA30559003C19C5 /* UnsplashViewModel.swift */,
+				FDAEFEEA2CB3B15D003C19C5 /* PhotoDetailsSheetViewModel.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -287,6 +289,7 @@
 		FDAEFED62CA2FD9C003C19C5 /* Repository */ = {
 			isa = PBXGroup;
 			children = (
+				FDAEFEE62CB35484003C19C5 /* UnsplashSearchResult.swift */,
 				FDAEFEDD2CA305F9003C19C5 /* APIKey.swift */,
 				FDAEFED92CA30585003C19C5 /* UnsplashRepository.swift */,
 			);
@@ -310,11 +313,10 @@
 			);
 			name = "Green Leaf";
 			packageProductDependencies = (
-				FD9481842C9C7BBF00BFEB7A /* FirebaseAuth */,
-				FD9481862C9C7BF200BFEB7A /* FirebaseDatabase */,
-				FD9481882C9C7BF900BFEB7A /* FirebaseStorage */,
-				FD94818A2C9C7C0600BFEB7A /* FirebaseFirestore */,
-				FDAEFEE22CAADB61003C19C5 /* UnsplashPhotoPicker */,
+				FDAEFEED2CB79733003C19C5 /* FirebaseAuth */,
+				FDAEFEEF2CB79740003C19C5 /* FirebaseStorage */,
+				FDAEFEF12CB7974B003C19C5 /* FirebaseFirestore */,
+				FDAEFEF32CB79765003C19C5 /* FirebaseDatabase */,
 			);
 			productName = "Green Leaf";
 			productReference = FD882C062C92FD570056F769 /* Green Leaf.app */;
@@ -384,12 +386,12 @@
 				FD94817F2C9C73DE00BFEB7A /* SettingsRowView.swift in Sources */,
 				FDAEFEDE2CA305F9003C19C5 /* APIKey.swift in Sources */,
 				FDAEFEDA2CA30585003C19C5 /* UnsplashRepository.swift in Sources */,
-				FDAEFEE52CAC2CEA003C19C5 /* PhotoDetailView.swift in Sources */,
 				FD4A435B2C98614300493303 /* WelcomeScreenView.swift in Sources */,
 				FD4A436E2C98926800493303 /* ProfileView.swift in Sources */,
 				FD9481822C9C772800BFEB7A /* FirebaseViewModel.swift in Sources */,
 				FD882C0A2C92FD570056F769 /* Green_LeafApp.swift in Sources */,
 				FD4A436C2C98925300493303 /* FavoriteView.swift in Sources */,
+				FDAEFEE92CB3A34B003C19C5 /* PhotoDetailsSheetView.swift in Sources */,
 				FDAEFEE02CA30612003C19C5 /* HTTPError.swift in Sources */,
 				FD94817D2C9C739800BFEB7A /* User.swift in Sources */,
 				FD4A435E2C9876E200493303 /* LoginView.swift in Sources */,
@@ -397,6 +399,7 @@
 				FD4A43632C9886F500493303 /* MainTabView.swift in Sources */,
 				FDAEFED82CA30559003C19C5 /* UnsplashViewModel.swift in Sources */,
 				FD94817A2C9C5E6300BFEB7A /* TabItem.swift in Sources */,
+				FDAEFEEB2CB3B15D003C19C5 /* PhotoDetailsSheetViewModel.swift in Sources */,
 				FD4A43662C98921D00493303 /* HomeView.swift in Sources */,
 				FD4A43602C9877C300493303 /* SignUpView.swift in Sources */,
 				FD4A43592C9860BE00493303 /* SplashScreenView.swift in Sources */,
@@ -536,6 +539,9 @@
 				DEVELOPMENT_TEAM = 642CCX5694;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = "Green-Leaf-Info.plist";
+				INFOPLIST_KEY_LSApplicationCategoryType = "";
+				INFOPLIST_KEY_NSPhotoLibraryAddUsageDescription = "";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -565,6 +571,9 @@
 				DEVELOPMENT_TEAM = 642CCX5694;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = "Green-Leaf-Info.plist";
+				INFOPLIST_KEY_LSApplicationCategoryType = "";
+				INFOPLIST_KEY_NSPhotoLibraryAddUsageDescription = "";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -626,30 +635,25 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		FD9481842C9C7BBF00BFEB7A /* FirebaseAuth */ = {
+		FDAEFEED2CB79733003C19C5 /* FirebaseAuth */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = FD4A43762C9B97A900493303 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
 			productName = FirebaseAuth;
 		};
-		FD9481862C9C7BF200BFEB7A /* FirebaseDatabase */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = FD4A43762C9B97A900493303 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
-			productName = FirebaseDatabase;
-		};
-		FD9481882C9C7BF900BFEB7A /* FirebaseStorage */ = {
+		FDAEFEEF2CB79740003C19C5 /* FirebaseStorage */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = FD4A43762C9B97A900493303 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
 			productName = FirebaseStorage;
 		};
-		FD94818A2C9C7C0600BFEB7A /* FirebaseFirestore */ = {
+		FDAEFEF12CB7974B003C19C5 /* FirebaseFirestore */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = FD4A43762C9B97A900493303 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
 			productName = FirebaseFirestore;
 		};
-		FDAEFEE22CAADB61003C19C5 /* UnsplashPhotoPicker */ = {
+		FDAEFEF32CB79765003C19C5 /* FirebaseDatabase */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = FDAEFEE12CAADB61003C19C5 /* XCRemoteSwiftPackageReference "unsplash-photopicker-ios" */;
-			productName = UnsplashPhotoPicker;
+			package = FD4A43762C9B97A900493303 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseDatabase;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

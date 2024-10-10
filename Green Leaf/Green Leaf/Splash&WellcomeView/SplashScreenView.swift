@@ -16,7 +16,8 @@ struct SplashScreenView: View {
     var body: some View {
         VStack {
             if isActive {
-                WelcomeScreenView() // Wechsle zum Willkommens-Screen
+               WelcomeScreenView() // Wechsle zum Willkommens-Screen
+                
             } else {
                 VStack {
                     Image(systemName: "photo.on.rectangle.angled")
