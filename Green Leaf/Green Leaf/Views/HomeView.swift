@@ -11,6 +11,7 @@ struct HomeView: View {
     @Binding var tab: TabItem
     
     @State var viewModel = UnsplashViewModel()
+    @EnvironmentObject var photoDetailViewModel: PhotoDetailViewModel
     @FocusState private var isSearchFieldFocused: Bool
     @State private var selectedPhoto: UnsplashPhoto?
     
@@ -99,6 +100,7 @@ struct HomeView: View {
             .sheet(item: $selectedPhoto) { photo in
                 PhotoDetailSheetView(photo: photo)
             }
+            .environmentObject(photoDetailViewModel)
         }
     }
 }
@@ -106,4 +108,5 @@ struct HomeView: View {
 
 #Preview {
     HomeView(tab: .constant(.home))
+        .environmentObject(PhotoDetailViewModel())
 }

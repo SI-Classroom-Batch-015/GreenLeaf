@@ -12,19 +12,17 @@ import FirebaseAuth
 @main
 struct Green_LeafApp: App {
     @StateObject var viewModel = FirebaseViewModel()
-    
+    @StateObject var photoDetailViewModel = PhotoDetailViewModel()
     init() {
-          FirebaseConfiguration.shared.setLoggerLevel(.min)
-          FirebaseApp.configure()
-      }
+        FirebaseConfiguration.shared.setLoggerLevel(.min)
+        FirebaseApp.configure()
+    }
     
     var body: some Scene {
         WindowGroup {
-                   if viewModel.userSession != nil {
-                       MainTabView().environmentObject(viewModel)
-                   } else {
-                       SplashScreenView().environmentObject(viewModel)
-                   }
-               }
-           }
-       }
+            ContentView()
+                .environmentObject(viewModel)
+                .environmentObject(photoDetailViewModel)
+        }
+    }
+}

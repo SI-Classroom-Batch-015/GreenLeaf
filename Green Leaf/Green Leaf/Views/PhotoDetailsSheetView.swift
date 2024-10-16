@@ -8,15 +8,15 @@ import SwiftUI
 
 struct PhotoDetailSheetView: View {
     let photo: UnsplashPhoto
-    @Environment(\.dismiss) var dismiss // Für das Schließen des Sheets
-    @StateObject private var viewModel = PhotoDetailViewModel() // ViewModel-Instanz
-
+    @Environment(\.dismiss) var dismiss
+    @EnvironmentObject var viewModel: PhotoDetailViewModel
+    
     var body: some View {
         VStack {
             HStack {
                 Spacer()
                 Button(action: {
-                    dismiss() // Schließt das Sheet
+                    dismiss()
                 }) {
                     Image(systemName: "xmark.circle.fill")
                         .font(.title)
@@ -37,16 +37,17 @@ struct PhotoDetailSheetView: View {
             Text(photo.description ?? "Keine Beschreibung")
                 .font(.headline)
                 .padding()
-
+            
             HStack {
                 Button(action: {
-                    print("Favorisieren gedrückt")
+                    viewModel.toggleFavorite(photo: photo)
                 }) {
-                    Label("Favorisieren", systemImage: "heart.fill")
-                        .foregroundColor(.red)
+                    Label(viewModel.isFavorite(photo: photo) ? "Entfernen" : "Favorisieren",
+                          systemImage: viewModel.isFavorite(photo: photo) ? "heart.slash.fill" : "heart.fill")
+                    .foregroundColor(.red)
                 }
                 .padding(.horizontal)
-
+                
                 Button(action: {
                     viewModel.downloadAndSaveImage(from: photo.urls.full)
                 }) {
@@ -58,8 +59,6 @@ struct PhotoDetailSheetView: View {
         }
     }
 }
-
-
 #Preview {
     let examplePhoto = UnsplashPhoto(
         id: "example_id",
@@ -72,4 +71,5 @@ struct PhotoDetailSheetView: View {
     )
     
     return PhotoDetailSheetView(photo: examplePhoto)
+        .environmentObject(PhotoDetailViewModel())
 }

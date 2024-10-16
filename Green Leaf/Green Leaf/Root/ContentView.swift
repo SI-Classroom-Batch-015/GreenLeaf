@@ -9,13 +9,16 @@ import SwiftUI
 
 struct ContentView: View {
     @EnvironmentObject var viewModel: FirebaseViewModel
-    
+    @EnvironmentObject var photoDetailViewModel: PhotoDetailViewModel
     var body: some View {
         Group {
             if viewModel.userSession != nil {
                 MainTabView() // Benutzer ist angemeldet, gehe zur Hauptansicht
+                    .environmentObject(viewModel)
+                    .environmentObject(photoDetailViewModel)
             } else {
                 LoginView() // Benutzer ist nicht angemeldet, zeige die Login-Ansicht
+                    .environmentObject(viewModel)
             }
         }
         .onAppear {
@@ -24,4 +27,9 @@ struct ContentView: View {
             }
         }
     }
+}
+#Preview {
+    ContentView()
+        .environmentObject(FirebaseViewModel())
+        .environmentObject(PhotoDetailViewModel())
 }

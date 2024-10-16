@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct MainTabView: View {
+    @EnvironmentObject var photoDetailViewModel: PhotoDetailViewModel
     
     @State private var selectedTab: TabItem = .home
     
@@ -27,29 +28,30 @@ struct MainTabView: View {
                 }
                 .tag(TabItem.trending)
             
-           AddView()
+            AddView()
                 .tabItem {
                     Label(TabItem.Add.title, systemImage: TabItem.Add.icon)
                 }
                 .tag(TabItem.Add)
             
             FavoriteView()
-                 .tabItem {
-                     Label(TabItem.Favorite.title, systemImage: TabItem.Favorite.icon)
-                 }
-                 .tag(TabItem.Favorite)
+                .tabItem {
+                    Label(TabItem.Favorite.title, systemImage: TabItem.Favorite.icon)
+                }
+                .tag(TabItem.Favorite)
             
             ProfileView()
-                 .tabItem {
-                     Label(TabItem.Profil.title, systemImage: TabItem.Profil.icon)
-                 }
-                 .tag(TabItem.Profil)
+                .tabItem {
+                    Label(TabItem.Profil.title, systemImage: TabItem.Profil.icon)
+                }
+                .tag(TabItem.Profil)
         }
         .accentColor(.green) //  Tab Highlight Color
+        .onAppear {
+                    print("PhotoDetailViewModel in MainTabView:", photoDetailViewModel)
+       }
     }
-    
 }
-#Preview {
-    MainTabView().environmentObject(FirebaseViewModel())
-}
- 
+    #Preview {
+        MainTabView()
+    }
