@@ -10,6 +10,7 @@ struct PhotoDetailSheetView: View {
     let photo: UnsplashPhoto
     @Environment(\.dismiss) var dismiss
     @EnvironmentObject var viewModel: PhotoDetailViewModel
+    @EnvironmentObject var firebaseViewModel: FirebaseViewModel
     
     var body: some View {
         VStack {
@@ -39,15 +40,23 @@ struct PhotoDetailSheetView: View {
                 .padding()
             
             HStack {
-                Button(action: {
-                    viewModel.toggleFavorite(photo: photo)
-                }) {
-                    Label(viewModel.isFavorite(photo: photo) ? "Entfernen" : "Favorisieren",
-                          systemImage: viewModel.isFavorite(photo: photo) ? "heart.slash.fill" : "heart.fill")
-                    .foregroundColor(.red)
+                // Favorisieren nur für angemeldete Benutzer möglich
+                if !firebaseViewModel.isGuest {
+                    Button(action: {
+                        viewModel.toggleFavorite(photo: photo, isGuest: firebaseViewModel.isGuest) // Den Gaststatus übergeben
+                    }) {
+                        Label(viewModel.isFavorite(photo: photo) ? "Entfernen" : "Favorisieren",
+                              systemImage: viewModel.isFavorite(photo: photo) ? "heart.slash.fill" : "heart.fill")
+                        .foregroundColor(.red)
+                    }
+                    .padding(.horizontal)
+                } else {
+                    // Favorisieren für Gäste deaktiviert
+                    Label("Favorisieren", systemImage: "heart.fill")
+                        .foregroundColor(.gray)
+                        .padding(.horizontal)
+                        .opacity(0.5) // Visuell zeigen, dass es deaktiviert ist
                 }
-                .padding(.horizontal)
-                
                 Button(action: {
                     viewModel.downloadAndSaveImage(from: photo.urls.full)
                 }) {

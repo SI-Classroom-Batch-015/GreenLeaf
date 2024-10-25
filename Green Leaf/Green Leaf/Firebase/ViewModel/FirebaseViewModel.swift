@@ -13,58 +13,83 @@ import FirebaseFirestore
 @MainActor
 class FirebaseViewModel: ObservableObject {
     
-    // Instanz von FirebaseManager
     private let firebaseManager = FirebaseManager.shared
     
     @Published var userSession: FirebaseAuth.User? // Überwacht, ob ein Benutzer angemeldet ist
     @Published var currentUser: User? // Enthält die aktuellen Benutzerdaten
+    @Published var isGuest = false // Zustand für Gastnutzung
+    @Published var hasSkippedStartup = false
     
-    init(){
-        self.userSession = FirebaseManager.shared.auth.currentUser // Aktuellen Benutzer beim Start prüfen
+    init() {
         Task {
-            await fetchUser() // Benutzerdaten laden, falls ein Benutzer angemeldet ist
+            await checkUserSession()
         }
+    }
+    
+    // Prüft die vorhandene Sitzung beim Start
+    private func checkUserSession() async {
+        if let currentUser = firebaseManager.auth.currentUser {
+            self.userSession = currentUser
+            await fetchUser() // Läd die Benutzerdaten für eine vorhandene Sitzung
+            hasSkippedStartup = true
+        }
+    }
+
+    // Gastmodus aktivieren
+    func continueAsGuest() {
+        isGuest = true
+        hasSkippedStartup = true
+        userSession = nil
     }
     
     // Login-Methode
     func signIn(withEmail email: String, password: String) async throws {
         do {
-            let result = try await FirebaseManager.shared.auth.signIn(withEmail: email, password: password)
+            let result = try await firebaseManager.auth.signIn(withEmail: email, password: password)
             self.userSession = result.user // Aktualisiere die userSession
             await fetchUser() // Benutzerdaten laden
+            
+            isGuest = false // Kein Gast mehr
+            hasSkippedStartup = true // Start-Bildschirm überspringen
         } catch {
             print("Fehler bei der Anmeldung: \(error.localizedDescription)")
             throw error
         }
     }
-    
+
     // Registrierungsmethode
     func createUser(withEmail email: String, password: String, fullName: String) async throws {
-           do {
-               let result = try await FirebaseManager.shared.auth.createUser(withEmail: email, password: password)
-               self.userSession = result.user // Benutzer-Session aktualisieren
-               
-               // Benuzer-Daten vorbereiten
-               let userData: [String: Any] = [
-                   "id": result.user.uid,
-                   "fullname": fullName,
-                   "email": email
-               ]
-               
-               // Benutzerdaten in Firestore speichern
-               try await FirebaseManager.shared.database.collection("users").document(result.user.uid).setData(userData)
-               
-               // Benutzer-Daten abrufen und setzen
-               await fetchUser()
-               
-           } catch {
-               print("Fehler bei der Registrierung: \(error.localizedDescription)")
-               throw error
-           }
-       }
+        do {
+            let result = try await firebaseManager.auth.createUser(withEmail: email, password: password)
+            self.userSession = result.user // Benutzer-Session aktualisieren
+            
+            // Benuzer-Daten vorbereiten
+            let userData: [String: Any] = [
+                "id": result.user.uid,
+                "fullname": fullName,
+                "email": email
+            ]
+            
+            // Benutzerdaten in Firestore speichern
+            try await firebaseManager.database.collection("users").document(result.user.uid).setData(userData)
+            
+            // Benutzer-Daten abrufen und setzen
+            await fetchUser()
+            isGuest = false
+            hasSkippedStartup = true
+            
+        } catch {
+            print("Fehler bei der Registrierung: \(error.localizedDescription)")
+            throw error
+        }
+    }
+    
     // Methode zum Abrufen der Benutzerdaten
     func fetchUser() async {
-        guard let uid = firebaseManager.auth.currentUser?.uid else { return }
+        guard let uid = firebaseManager.auth.currentUser?.uid else {
+            userSession = nil
+            return
+        }
         do {
             let snapshot = try await firebaseManager.database.collection("users").document(uid).getDocument()
             if let data = snapshot.data() {
@@ -74,13 +99,15 @@ class FirebaseViewModel: ObservableObject {
             print("Fehler beim Abrufen des Benutzers: \(error.localizedDescription)")
         }
     }
-    
+
     // Abmeldungsmethode
     func signOut() {
         do {
-            try firebaseManager.auth.signOut() // signout der user in backend
-            self.userSession = nil  // löscht die Benutzersitzung und bringt uns zurück zum Anmeldebildschirm
-            self.currentUser = nil
+            try firebaseManager.auth.signOut() // Sign-out in Firebase
+            self.userSession = nil // Benutzer-Sitzung zurücksetzen
+            self.currentUser = nil // Benutzerdaten zurücksetzen
+            isGuest = false // Gastmodus deaktivieren
+            hasSkippedStartup = false // Zurück zum Startup-Flow
         } catch {
             print("Fehler beim Abmelden: \(error.localizedDescription)")
         }

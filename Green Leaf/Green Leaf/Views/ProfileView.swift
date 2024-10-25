@@ -62,10 +62,14 @@ struct ProfileView: View {
             }
         } else {
             Text("Keine Benutzerdaten verfügbar")
+                .onAppear {
+                    Task {
+                        await viewModel.fetchUser()
+                    }
+                }
         }
     }
 }
-
 
 // Preview
 #Preview {

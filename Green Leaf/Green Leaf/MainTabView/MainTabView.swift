@@ -8,6 +8,8 @@
 import SwiftUI
 
 struct MainTabView: View {
+    
+    @EnvironmentObject var viewModel: FirebaseViewModel
     @EnvironmentObject var photoDetailViewModel: PhotoDetailViewModel
     
     @State private var selectedTab: TabItem = .home
@@ -48,10 +50,12 @@ struct MainTabView: View {
         }
         .accentColor(.green) //  Tab Highlight Color
         .onAppear {
-                    print("PhotoDetailViewModel in MainTabView:", photoDetailViewModel)
-       }
+            print("PhotoDetailViewModel in MainTabView:", photoDetailViewModel)
+        }
     }
 }
-    #Preview {
-        MainTabView()
-    }
+#Preview {
+    MainTabView()
+        .environmentObject(PhotoDetailViewModel())
+        .environmentObject(FirebaseViewModel())
+}

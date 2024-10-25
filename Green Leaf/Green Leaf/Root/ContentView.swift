@@ -10,24 +10,31 @@ import SwiftUI
 struct ContentView: View {
     @EnvironmentObject var viewModel: FirebaseViewModel
     @EnvironmentObject var photoDetailViewModel: PhotoDetailViewModel
+
     var body: some View {
-        Group {
-            if viewModel.userSession != nil {
-                MainTabView() // Benutzer ist angemeldet, gehe zur Hauptansicht
-                    .environmentObject(viewModel)
-                    .environmentObject(photoDetailViewModel)
+        NavigationView {
+            if viewModel.hasSkippedStartup {
+                if viewModel.isGuest || viewModel.userSession != nil {
+                    MainTabView() // Navigiere zur Hauptansicht, wenn der Benutzer angemeldet ist oder Gastmodus aktiviert wurde
+                        .environmentObject(viewModel)
+                        .environmentObject(photoDetailViewModel)
+                } else {
+                    WelcomeScreenView() // Navigiere zum Willkommensbildschirm, wenn der Benutzer abgemeldet ist
+                        .environmentObject(viewModel)
+                }
             } else {
-                LoginView() // Benutzer ist nicht angemeldet, zeige die Login-Ansicht
+                WelcomeScreenView() // Navigiere zum Willkommensbildschirm, wenn der Benutzer noch keinen Login durchgeführt hat
                     .environmentObject(viewModel)
             }
         }
         .onAppear {
             Task {
-                await viewModel.fetchUser() // Benutzerdaten laden, wenn die Ansicht erscheint
+                await viewModel.fetchUser()
             }
         }
     }
 }
+
 #Preview {
     ContentView()
         .environmentObject(FirebaseViewModel())

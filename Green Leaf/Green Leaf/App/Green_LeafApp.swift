@@ -13,6 +13,8 @@ import FirebaseAuth
 struct Green_LeafApp: App {
     @StateObject var viewModel = FirebaseViewModel()
     @StateObject var photoDetailViewModel = PhotoDetailViewModel()
+    @State private var showSplash = true
+    
     init() {
         FirebaseConfiguration.shared.setLoggerLevel(.min)
         FirebaseApp.configure()
@@ -20,9 +22,29 @@ struct Green_LeafApp: App {
     
     var body: some Scene {
         WindowGroup {
-            ContentView()
-                .environmentObject(viewModel)
-                .environmentObject(photoDetailViewModel)
+            ZStack {
+                if showSplash {
+                    SplashScreenView()  // Zeige den Splash-Screen
+                        .transition(.opacity)
+                } else {
+                    ContentView()
+                        .environmentObject(viewModel)
+                        .environmentObject(photoDetailViewModel)
+                }
+            }
+            .onAppear {
+                // Prüfe, ob ein Benutzer angemeldet ist oder ein Gast
+                Task {
+                    await viewModel.fetchUser()  // Überprüfe Benutzer während des Splash-Screens
+                }
+                
+                // Splash-Screen nach 2 Sekunden ausblenden
+                DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
+                    withAnimation {
+                        showSplash = false
+                    }
+                }
+            }
         }
     }
 }

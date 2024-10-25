@@ -42,17 +42,18 @@ class UnsplashViewModel {
      }
     
  
-    func loadPhotos(page: Int = 1) async {
+    func loadPhotos() async {
         isLoading = true
         errorMessage = nil
         do {
-            let fetchedPhotos = try await repository.fetchPhotos(page: page)
+            let fetchedPhotos = try await repository.fetchPhotos(totalPhotos: 1000)
             photos = fetchedPhotos
         } catch {
             errorMessage = error.localizedDescription
         }
         isLoading = false
     }
+
     
     func searchPhotos(query: String) async {
         guard !query.isEmpty else { return }

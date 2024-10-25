@@ -80,6 +80,10 @@ struct HomeView: View {
                                             }
                                     } placeholder: {
                                         ProgressView()
+                                            
+                                            .aspectRatio(contentMode: .fill)
+                                            .frame(width: 150, height: 150)
+                                            .clipShape(RoundedRectangle(cornerRadius: 10))
                                     }
                                     
                                     Text(photo.description ?? "Keine Beschreibung")
