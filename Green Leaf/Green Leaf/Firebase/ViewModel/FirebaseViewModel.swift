@@ -9,6 +9,7 @@ import Foundation
 import Firebase
 import FirebaseAuth
 import FirebaseFirestore
+import FirebaseStorage
 
 @MainActor
 class FirebaseViewModel: ObservableObject {
@@ -18,13 +19,18 @@ class FirebaseViewModel: ObservableObject {
     @Published var userSession: FirebaseAuth.User? // Überwacht, ob ein Benutzer angemeldet ist
     @Published var currentUser: User? // Enthält die aktuellen Benutzerdaten
     @Published var isGuest = false // Zustand für Gastnutzung
+    @Published var userPhotos: [UnsplashPhoto] = [] // Für Benutzer-Uploads
     @Published var hasSkippedStartup = false
+    
+    
     
     init() {
         Task {
             await checkUserSession()
         }
     }
+    
+
     
     // Prüft die vorhandene Sitzung beim Start
     private func checkUserSession() async {
@@ -99,6 +105,7 @@ class FirebaseViewModel: ObservableObject {
             print("Fehler beim Abrufen des Benutzers: \(error.localizedDescription)")
         }
     }
+  
 
     // Abmeldungsmethode
     func signOut() {

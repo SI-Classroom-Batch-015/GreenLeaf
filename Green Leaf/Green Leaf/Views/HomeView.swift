@@ -15,6 +15,8 @@ struct HomeView: View {
     @FocusState private var isSearchFieldFocused: Bool
     @State private var selectedPhoto: UnsplashPhoto?
     
+    
+    
     var body: some View {
         NavigationStack {
             VStack {
@@ -57,9 +59,18 @@ struct HomeView: View {
                     }
                 }
                 .padding()
+                // Filter Picker
+                Picker("Filter", selection: $viewModel.selectedFilter) {
+                    ForEach(PhotoFilter.allCases) { filter in
+                        Text(filter.rawValue).tag(filter)
+                    }
+                }
+                .pickerStyle(SegmentedPickerStyle())
+                .padding()
                 
                 // Content
                 if viewModel.isLoading {
+                    
                     ProgressView("Lade Photos")
                 } else if let errorMessage = viewModel.errorMessage {
                     Text("Fehler: \(errorMessage)")
@@ -67,7 +78,7 @@ struct HomeView: View {
                 } else {
                     ScrollView {
                         LazyVGrid(columns: [GridItem(.flexible()), GridItem(.flexible())]) {
-                            ForEach(viewModel.photos) { photo in
+                            ForEach(viewModel.filteredPhotos) { photo in
                                 VStack {
                                     AsyncImage(url: URL(string: photo.urls.small)) { image in
                                         image
@@ -80,7 +91,7 @@ struct HomeView: View {
                                             }
                                     } placeholder: {
                                         ProgressView()
-                                            
+                                        
                                             .aspectRatio(contentMode: .fill)
                                             .frame(width: 150, height: 150)
                                             .clipShape(RoundedRectangle(cornerRadius: 10))
@@ -107,6 +118,7 @@ struct HomeView: View {
             .environmentObject(photoDetailViewModel)
         }
     }
+    
 }
 
 

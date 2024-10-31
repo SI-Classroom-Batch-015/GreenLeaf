@@ -22,7 +22,7 @@ struct MainTabView: View {
                     Label(TabItem.home.title, systemImage: TabItem.home.icon)
                 }
                 .tag(TabItem.home)
-                .badge(10)
+                //.badge(10) für notification
             
             TrendingView()
                 .tabItem {
