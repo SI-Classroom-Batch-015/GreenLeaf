@@ -73,6 +73,11 @@ struct FavoriteView: View {
                 }
             }
         }
+        .onAppear {
+            Task {
+                await viewModel.fetchFavorites()
+            }
+        }
     }
 }
 

@@ -39,12 +39,18 @@ struct SignUpView: View {
                     .shadow(color: .gray, radius: 5, x: 0, y: 2)
                 
                 SecureField("Password", text: $password)
+                    .textContentType(.oneTimeCode) // Deaktiviert die Passwortvorschlagsleiste
+                    .autocapitalization(.none)
+                    .disableAutocorrection(true)
                     .padding()
                     .background(Color.white)
                     .cornerRadius(10)
                     .shadow(color: .gray, radius: 5, x: 0, y: 2)
                 
                 SecureField("Confirm Password", text: $confirmPassword)
+                    .textContentType(.oneTimeCode) // Deaktiviert die Passwortvorschlagsleiste
+                    .autocapitalization(.none)
+                    .disableAutocorrection(true)
                     .padding()
                     .background(Color.white)
                     .cornerRadius(10)

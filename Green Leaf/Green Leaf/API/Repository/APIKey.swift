@@ -8,6 +8,6 @@
 import Foundation
 
 struct APIKeys {
-    static let UnsplashAPIKey = "Di3D4qISFa3RBPTzO5jLLxdk_yYHgnCFTrRCfjn64Jk"
+    static let UnsplashAPIKey = "PoSKYe7utHV1n0xL61NyaEhTEAQVrOykfmp4bPKJB7k"
 }
 

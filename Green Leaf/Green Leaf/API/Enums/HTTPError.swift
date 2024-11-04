@@ -7,7 +7,16 @@
 
 import Foundation
 
-enum HTTPError: Error {
+enum HTTPError: LocalizedError {
     case invalidURL
-    case missingData
+    case statusCodeError(Int)
+    
+    var errorDescription: String? {
+        switch self {
+        case .invalidURL:
+            return "The URL provided was invalid."
+        case .statusCodeError(let code):
+            return "The server responded with an error status code: \(code)."
+        }
+    }
 }

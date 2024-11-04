@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import FirebaseAuth
 import Observation
 
 @Observable
@@ -57,7 +58,7 @@ class UnsplashViewModel {
     }
     
     
-    // Load initial photos from Unsplash API and Firebase
+    // Lädt Fotos aus der Unsplash API und Benutzerfotos aus Firestore
     func loadPhotos() async {
         isLoading = true
         errorMessage = nil
@@ -68,11 +69,6 @@ class UnsplashViewModel {
             photos = try await fetchedPhotos
             userPhotos = try await fetchedUserPhotos
             
-            // Aktualisiere gefilterte Fotos, um den neuen Zustand widerzuspiegeln
-            if selectedFilter == .all {
-                // Wenn "All Photos" aktiv ist, sicherstellen, dass beide Sets angezeigt werden
-                photos = photos + userPhotos
-            }
         } catch {
             errorMessage = error.localizedDescription
         }
@@ -94,16 +90,36 @@ class UnsplashViewModel {
     }
     // Fetch user-uploaded photos from Firebase Firestore
     private func fetchUserPhotos() async throws -> [UnsplashPhoto] {
-        do {
-            let snapshot = try await firebaseManager.database.collection("photos").order(by: "uploadedAt", descending: true).getDocuments()
-            return snapshot.documents.compactMap { doc -> UnsplashPhoto? in
-                guard let url = doc["url"] as? String else { return nil }
-                return UnsplashPhoto(id: doc.documentID, description: doc["description"] as? String ?? "User Photo", urls: UnsplashPhoto.URLs(small: url, full: url), likes: 0)
-            }
-        } catch {
-            print("Fehler beim Laden der Benutzerfotos: \(error)")
-            throw error
+        guard let userId = Auth.auth().currentUser?.uid else {
+            throw NSError(domain: "Authentication", code: 401, userInfo: [NSLocalizedDescriptionKey: "User not authenticated"])
+        }
+        
+        let snapshot = try await firebaseManager.database.collection("photos")
+            .whereField("userId", isEqualTo: userId)
+            .order(by: "uploadedAt", descending: true)
+            .getDocuments()
+        
+        return snapshot.documents.compactMap { doc -> UnsplashPhoto? in
+            guard let url = doc["url"] as? String else { return nil }
+            return UnsplashPhoto(id: doc.documentID, description: doc["description"] as? String ?? "User Photo", urls: UnsplashPhoto.URLs(small: url, full: url), likes: 0)
         }
     }
+    private func fetchUserFavorites() async throws -> [UnsplashPhoto] {
+        guard let userId = Auth.auth().currentUser?.uid else {
+            throw NSError(domain: "Authentication", code: 401, userInfo: [NSLocalizedDescriptionKey: "User not authenticated"])
+        }
+        
+        let snapshot = try await firebaseManager.database.collection("users")
+            .document(userId)
+            .collection("favorites")
+            .getDocuments()
+        
+        return snapshot.documents.compactMap { doc -> UnsplashPhoto? in
+            guard let url = doc["url"] as? String else { return nil }
+            return UnsplashPhoto(id: doc.documentID, description: doc["description"] as? String ?? "Favorited Photo", urls: UnsplashPhoto.URLs(small: url, full: url), likes: 0)
+        }
+    }
+    
+    
     
 }

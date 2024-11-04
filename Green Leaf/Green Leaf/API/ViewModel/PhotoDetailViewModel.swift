@@ -45,6 +45,7 @@ class PhotoDetailViewModel: ObservableObject {
         favoritePhotos.append(photo)
         Task {
             await saveFavoriteToFirebase(photo)
+            await fetchFavorites() // Holen Sie sich die neuesten Favoriten nach dem Speichern
         }
     }
     
@@ -53,6 +54,7 @@ class PhotoDetailViewModel: ObservableObject {
         favoritePhotos.removeAll { $0.id == photo.id }
         Task {
             await deleteFavoriteFromFirebase(photo)
+            await fetchFavorites() // Die Favoritenliste nach dem Löschen neu laden
         }
     }
     

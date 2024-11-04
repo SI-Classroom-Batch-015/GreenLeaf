@@ -11,7 +11,8 @@ import SwiftUI
 struct CategorySectionView: View {
     let title: String
     let photos: [UnsplashPhoto]
-
+    @Binding var selectedPhoto: UnsplashPhoto? // Binding für das ausgewählte Foto
+    
     var body: some View {
         VStack(alignment: .leading) {
             Text(title)
@@ -28,6 +29,9 @@ struct CategorySectionView: View {
                                 .frame(width: 100, height: 150)
                                 .clipped()
                                 .cornerRadius(10)
+                                .onTapGesture {
+                                    selectedPhoto = photo // Setzt das ausgewählte Foto
+                                }
                         } placeholder: {
                             Rectangle()
                                 .fill(Color.gray.opacity(0.3))
@@ -36,7 +40,6 @@ struct CategorySectionView: View {
                         }
                     }
                 }
-                .padding(.horizontal, 10)
             }
         }
     }
@@ -48,5 +51,5 @@ struct CategorySectionView: View {
         UnsplashPhoto(id: "3", description: "Beispiel 3", urls: UnsplashPhoto.URLs(small: "https://via.placeholder.com/100", full: "https://via.placeholder.com/100"), likes: 20)
     ]
     
-    return CategorySectionView(title: "Actors", photos: examplePhotos)
+    CategorySectionView(title: "Actors", photos: examplePhotos, selectedPhoto: .constant(nil))
 }

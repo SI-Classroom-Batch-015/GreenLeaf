@@ -13,6 +13,7 @@ import Combine
 class TrendingViewModel: ObservableObject {
     @Published var carouselPhotos: [UnsplashPhoto] = []
     @Published var categoryPhotos: [String: [UnsplashPhoto]] = [:]
+    @Published var isLoading = false
     
     private let unsplashRepository = UnsplashRepository()
     
@@ -22,20 +23,24 @@ class TrendingViewModel: ObservableObject {
         }
     }
     
+    
+    
     func loadTrendingPhotos() async {
         // Beispiel: Lade Bilder für das Carousel
         do {
-            let photos = try await unsplashRepository.searchPhotos(query: "W124")
+            let photos = try await unsplashRepository.searchPhotos(query: "Nature")
             self.carouselPhotos = Array(photos.prefix(10)) // Lade nur 10 Fotos für das Carousel
+            print("Carousel Photos geladen: \(self.carouselPhotos.count) Fotos") // Debug-Ausgabe
         } catch {
             print("Fehler beim Laden der Carousel-Fotos: \(error)")
         }
         
         // Beispiel für Kategorien
         await loadCategoryPhotos(query: "The Joker", category: "The Joker")
-        await loadCategoryPhotos(query: " Hamburg", category: " Hamburg")
+        await loadCategoryPhotos(query: "Hamburg", category: "Hamburg")
         await loadCategoryPhotos(query: "Uk drill", category: "Uk drill")
     }
+
     
     private func loadCategoryPhotos(query: String, category: String) async {
         do {
@@ -45,4 +50,5 @@ class TrendingViewModel: ObservableObject {
             print("Fehler beim Laden der Kategorie-Fotos: \(error)")
         }
     }
+    
 }
