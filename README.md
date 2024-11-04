@@ -4,9 +4,7 @@
 
 
 # Green Leaf 🌿
-*Geschenk der Augenblicke*
-
-Green Leaf ist eine App für Fotografie-Enthusiasten, die kostenlose, hochqualitative HD-Fotos erkunden und ihre eigenen Bilder mit einer Community teilen möchten.
+Green Leaf ist mehr als nur eine Fotoplattform – es ist ein „Geschenk der Natur“, inspiriert von der persischen Redewendung „تحفۀ درویش“ (Das Geschenk des Einsiedlers). So wie ein grünes Blatt ein Geschenk ist, das die Natur kostenlos anbietet, lädt Green Leaf Nutzer dazu ein, in hochwertige, kostenlose HD-Fotos einzutauchen und ihre eigenen Bilder als Geschenk mit der Community zu teilen.
 
 **Für wen ist sie geeignet?**
 
