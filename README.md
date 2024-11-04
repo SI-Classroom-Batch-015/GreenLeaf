@@ -16,7 +16,7 @@ Für alle, die sich für Fotografie interessieren und eine Plattform suchen, um 
 
 Green Leaf bietet eine einfache Möglichkeit, HD-Fotos zu finden und zu teilen, ohne dass man sich um Bildlizenzen sorgen muss.
 
-**Was macht deine App anders/besser als andere Apps?** 
+**Was macht die App anders/besser als andere Apps?** 
 
 Die App kombiniert die besten Aspekte bekannter Foto-Plattformen und bietet eine kreative Community, die zum Mitmachen inspiriert.
 
